@@ -23,6 +23,31 @@ const dashboardController = async (req, res) => {
          });
     }   
 }
+const uploadImageController = async (req, res) => {
+    try {
+        if (!req.file) {
+            return Responder(res, {
+                error: "No file uploaded",  
+                httpCode: 400,
+            });
+        }
+        console.log("Uploaded file info: ", req.file);
+        return Responder(res, {
+            message: "File uploaded successfully",
+            fileInfo: req.file,
+            httpCode: 200,
+        });
+    }
+    catch (error) {
+        console.error("Error in Upload Image Controller", error);
+         return Responder(res, {   
+            error: "Internal Server Error",
+            httpCode: 500,
+            });
+    }
+}
+
+
 module.exports = {
     dashboardController,
 };

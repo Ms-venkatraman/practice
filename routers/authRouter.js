@@ -11,8 +11,6 @@ const router = express.Router();
 router.post('/register', authvalidator, signUpController );
 router.post('/login', authvalidator, signInController ); 
 router.get('/test', dashboardController );
-router.post('/upload-image',upload.single('image'),(req,res)=>{
-    res.json({message: 'Image uploaded successfully'});
-})
+router.post('/upload-image',upload.single('image'),uploadImageController );
 
 module.exports = router;

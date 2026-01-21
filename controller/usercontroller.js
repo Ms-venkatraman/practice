@@ -50,6 +50,7 @@ const uploadImageController = async (req, res) => {
 
 module.exports = {
     dashboardController,
+    uploadImageController
 };
         
 

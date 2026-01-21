@@ -3,7 +3,7 @@ const { authvalidator } = require('../helpers/Validator');
 const { 
     signInController,
     signUpController,} = require('../controller/authController');
-const { dashboardController } = require('../controller/usercontroller');
+const { dashboardController, uploadImageController } = require('../controller/usercontroller');
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 const router = express.Router();

@@ -56,7 +56,33 @@ const signInService = async ( email, password) => {
     }           
 }
 
+const downloadService = async (fileid) => {
+  try {
+    const url = `https://drive.google.com/uc?export=download&id=${fileid}`;
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      return {
+        error: "Download failed",
+        httpCode: response.status,
+      };
+    }
+    return {
+        data: response.url,
+        message: "File download link generated successfully"
+    };  
+
+  } catch (error) {
+    return {
+      error: error.message,
+      httpCode: 500,
+    };
+  }
+};
+
+
 module.exports = {
     signUpService,
-    signInService
+    signInService,
+    downloadService
 }   

@@ -1,5 +1,6 @@
 const Responder = require("../helpers/responder");
 const { jwtVerify } = require("../helpers/utils");
+const { downloadService } = require("../service/authServices");
 
 const dashboardController = async (req, res) => {
     try {
@@ -34,7 +35,7 @@ const uploadImageController = async (req, res) => {
         console.log("Uploaded file info: ", req.file);
         return Responder(res, {
             message: "File uploaded successfully",
-            fileInfo: req.file,
+            data: req.file,
             httpCode: 200,
         });
     }
@@ -46,11 +47,25 @@ const uploadImageController = async (req, res) => {
             });
     }
 }
-
-
+const downloadController = async (req, res) => {
+    try {
+        const { fileid } = req.params;
+        const result = await downloadService(fileid);
+        console.log("after result : ", result)
+        return Responder(res, result);  
+    }
+    catch (error) { 
+        console.error("Error in Download Controller", error.message);
+            return Responder(res, {
+            error: "Internal Server Error [ download controller ]" + error.message,
+            httpCode: 500,
+        });
+    }     
+}  
 module.exports = {
     dashboardController,
-    uploadImageController
+    uploadImageController,
+    downloadController
 };
         
 
